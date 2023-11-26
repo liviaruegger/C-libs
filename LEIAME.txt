@@ -1,0 +1,29 @@
+------------------- EP03 -------------------
+MAC0216 - Técnicas de Programação I - 2s2023
+--------------------------------------------
+
+
+=== AUTORA ===
+
+Ana Lívia Rüegger Saldanha
+NUSP: 8586691
+ana.saldanha@usp.br
+
+
+=== DESCRIÇÃO ===
+
+
+
+=== COMO EXECUTAR ===
+
+
+
+=== TESTES ===
+
+
+
+=== DEPENDÊNCIAS ===
+
+Compilador:     gcc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+Bash:           GNU bash, version 5.0.17(1)-release (x86_64-pc-linux-gnu)
+SO:             x86_64 GNU/Linux
