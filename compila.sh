@@ -7,7 +7,8 @@ gcc -c -fPIC -o shannon.o shannon.c || exit 1
 gcc -o libshannon.so -shared shannon.o -lm || exit 1
 
 # Compilar o programa de testes "testa.c"
-gcc testa.c -o testa -L${PWD} -lshannon -lhashliza || exit 1
+gcc -c -o testa.o testa.c || exit 1
+gcc -o testa testa.o -L${PWD} -lshannon -lhashliza || exit 1
 
 # Gerar documentação com doxygen
 # TODO
