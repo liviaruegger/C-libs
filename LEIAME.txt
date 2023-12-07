@@ -16,6 +16,7 @@ ana.saldanha@usp.br
 
 === COMO EXECUTAR ===
 
+$   export LD_LIBRARY_PATH="${PWD}:$LD_LIBRARY_PATH"
 
 
 === TESTES ===
