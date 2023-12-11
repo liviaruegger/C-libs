@@ -92,6 +92,29 @@ void testa_vetor_magico(int semente)
 
 
 /**
+ * @brief Testa a função ep3CalculaEntropiaShannon, comparando o valor retornado
+ * com o valor esperado, com uma tolerância de 0.000001.
+ * 
+ * @param info - string para a qual a Entropia de Shannon será calculada
+ * @param base - base do logaritmo utilizado no cálculo da entropia
+ * @param valor_esperado - valor esperado para a entropia da string de entrada
+ */
+void testa_shannon(char *info, int base, long double valor_esperado)
+{
+    long double calculado = ep3CalculaEntropiaShannon(info, base);
+
+    // Como se trata de um valor de ponto flutuante, a comparação é feita
+    // com uma tolerância de 0.000001
+    if (abs(calculado - valor_esperado) > 0.000001)
+    {
+        printf("ERRO: entropia de '%s' não é a esperada.\n", info);
+        printf("- Valor esperado: %Lf\n", valor_esperado);
+        printf("- Valor calculado: %Lf\n", calculado);
+    }
+}
+
+
+/**
  * @brief Testa as funções das bibliotecas hashliza e shannon. Caso algum erro
  * seja encontrado, uma mensagem de erro é impressa na saída padrão.
  * 
@@ -101,7 +124,8 @@ int main()
 {
     // TESTES DA LIB HASHLIZA ==================================================
     // Obs: os testes são realizados com o vetor dado no EP1, para garantir
-    // que a implementação está correta.
+    // que a implementação está correta. A geração de vetores mágicos pseudo-
+    // aleatórios é testada separadamente.
 
     printf("------------\nIniciando testes da lib hashliza...\n");
 
@@ -209,9 +233,27 @@ int main()
     printf("Se não recebeu mensagem de erro, todos os testes passaram!\n");
 
     // TESTES DA LIB SHANNON ===================================================
-    // ep3CalculaEntropiaShannon("Hello, World!", 2);
+    // Obs: os casos de teste foram obtidos a partir de calculadoras online
+    // (base 2) ou confirmando as saídas com colegas (outras bases).
 
+    printf("------------\nIniciando testes da lib shannon...\n");
+    
+    // Exemplo do vídeo
+    testa_shannon("araraquara", 2, 1.685475);
 
+    // Testes com base 2 - saídas obtidas com calculadora online
+    testa_shannon("AAAAAAAAAA", 2, 0.0);
+    testa_shannon("AAAAAAAAAB", 2, 0.468996);
+    testa_shannon("Hello, World!", 2, 3.180833);
+    testa_shannon("MAC0216 eh muito legal!", 2, 4.142915);
+
+    // Bases variadas - saídas comparadas com colegas
+    testa_shannon("Teste com base 3", 3, 2.069853);
+    testa_shannon("Teste com base 4", 4, 1.640320);
+    testa_shannon("Teste com base 5", 5, 1.412894);
+
+    printf("Finalizando testes da lib shannon...\n");
+    printf("Se não recebeu mensagem de erro, todos os testes passaram!\n");
     printf("------------\n");
 
     return 0;
