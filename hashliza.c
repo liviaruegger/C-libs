@@ -38,6 +38,9 @@ char *ep1Passo1Preenche(char *entrada)
  */
 char *ep1Passo2XOR(char *saida_1, int *vetor_magico, int *tamanho_saida)
 {   
+    if (saida_1 == NULL || vetor_magico == NULL || tamanho_saida == NULL ||
+        strlen(saida_1) % 16 != 0) return NULL;
+
     int n = strlen(saida_1) / 16;
     int tamanho = (n + 1) * 16;
     char *saida_2 = calloc(tamanho + 1, sizeof(char));
@@ -71,6 +74,9 @@ char *ep1Passo2XOR(char *saida_1, int *vetor_magico, int *tamanho_saida)
  */
 char *ep1Passo3Comprime(char *saida_2, int tamanho_entrada, int *vetor_magico)
 {
+    if (saida_2 == NULL || vetor_magico == NULL || tamanho_entrada % 16 != 0)
+        return NULL;
+    
     int n = tamanho_entrada / 16;
 
     char *saida_3 = calloc(49, sizeof(char));
@@ -109,6 +115,8 @@ char *ep1Passo3Comprime(char *saida_2, int tamanho_entrada, int *vetor_magico)
  */
 char *ep1Passo4Hash(char *saida_3)
 {
+    if (saida_3 == NULL) return NULL;
+
     char *hash = calloc(17, sizeof(char));
     for (int i = 0; i < 16; i++) hash[i] = saida_3[i];
 
@@ -126,6 +134,8 @@ char *ep1Passo4Hash(char *saida_3)
  */
 char *ep1Passo4HashEmHexa(char *hash)
 {
+    if (hash == NULL) return NULL;
+    
     char *hexa = calloc(33, sizeof(char));
     for (int i = 0; i < 16; i++)
         sprintf(hexa + (i * 2), "%02hhx", hash[i]);
