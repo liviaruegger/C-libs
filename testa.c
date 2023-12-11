@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include "hashliza.h"
 #include "shannon.h"
@@ -111,6 +112,188 @@ void testa_shannon(char *info, int base, long double valor_esperado)
         printf("- Valor esperado: %Lf\n", valor_esperado);
         printf("- Valor calculado: %Lf\n", calculado);
     }
+}
+
+
+/**
+ * @brief Esta função mede os tempos mínimo, médio e máximo de execução de cada
+ * uma das funções das bibliotecas hashliza e shannon, para um conjunto de dez
+ * execuções. Os tempos são medidos em segundos e impressos na saída padrão.
+ * 
+ */
+void medir_tempos()
+{
+    char teste[] = "Uma string qualquer para testar o tempo de execução!!!!!!!";
+
+    char *temp;
+    int *vetor_magico = ep3CriaVetorMagico(999);
+
+    clock_t inicial, final;
+
+    double min, max, media, aux;
+
+    // PASSO 1
+    media = 0;
+    min = 999;
+    max = 0;
+    for (int i = 0; i < 10; i++)
+    {
+        inicial = clock();
+        temp = ep1Passo1Preenche(teste);
+        final = clock();
+        free(temp);
+
+        aux = (double)(final - inicial) / CLOCKS_PER_SEC;
+
+        media += aux;
+        if (aux < min) min = aux;
+        if (aux > max) max = aux;
+    }
+    printf("ep1Passo1Preenche:\n");
+    printf("Tempo médio: %.7lf\n", media / 10.0);
+    printf("Tempo mínimo: %.7lf\n", min);
+    printf("Tempo máximo: %.7lf\n\n", max);
+
+    // PASSO 2
+    media = 0;
+    min = 999;
+    max = 0;
+    char *saida_1 = ep1Passo1Preenche(teste);
+    int tamanho;
+    for (int i = 0; i < 10; i++)
+    {
+        inicial = clock();
+        temp = ep1Passo2XOR(saida_1, vetor_magico, &tamanho);
+        final = clock();
+        free(temp);
+
+        aux = (double)(final - inicial) / CLOCKS_PER_SEC;
+
+        media += aux;
+        if (aux < min) min = aux;
+        if (aux > max) max = aux;
+    }
+    printf("ep1Passo2XOR:\n");
+    printf("Tempo médio: %.7lf\n", media / 10.0);
+    printf("Tempo mínimo: %.7lf\n", min);
+    printf("Tempo máximo: %.7lf\n\n", max);
+
+    // PASSO 3
+    media = 0;
+    min = 999;
+    max = 0;
+    char *saida_2 = ep1Passo2XOR(saida_1, vetor_magico, &tamanho);
+    free(saida_1);
+    for (int i = 0; i < 10; i++)
+    {
+        inicial = clock();
+        temp = ep1Passo3Comprime(saida_2, tamanho, vetor_magico);
+        final = clock();
+        free(temp);
+
+        aux = (double)(final - inicial) / CLOCKS_PER_SEC;
+
+        media += aux;
+        if (aux < min) min = aux;
+        if (aux > max) max = aux;
+    }
+    printf("ep1Passo3Comprime:\n");
+    printf("Tempo médio: %.7lf\n", media / 10.0);
+    printf("Tempo mínimo: %.7lf\n", min);
+    printf("Tempo máximo: %.7lf\n\n", max);
+
+    // PASSO 4 - parte 1
+    media = 0;
+    min = 999;
+    max = 0;
+    char *saida_3 = ep1Passo3Comprime(saida_2, tamanho, vetor_magico);
+    free(saida_2);
+    for (int i = 0; i < 10; i++)
+    {
+        inicial = clock();
+        temp = ep1Passo4Hash(saida_3);
+        final = clock();
+        free(temp);
+
+        aux = (double)(final - inicial) / CLOCKS_PER_SEC;
+
+        media += aux;
+        if (aux < min) min = aux;
+        if (aux > max) max = aux;
+    }
+    printf("ep1Passo4Hash:\n");
+    printf("Tempo médio: %.7lf\n", media / 10.0);
+    printf("Tempo mínimo: %.7lf\n", min);
+    printf("Tempo máximo: %.7lf\n\n", max);
+
+    // PASSO 4 - parte 2
+    media = 0;
+    min = 999;
+    max = 0;
+    char *saida_4 = ep1Passo4Hash(saida_3);
+    free(saida_3);
+    for (int i = 0; i < 10; i++)
+    {
+        inicial = clock();
+        temp = ep1Passo4HashEmHexa(saida_4);
+        final = clock();
+        free(temp);
+
+        aux = (double)(final - inicial) / CLOCKS_PER_SEC;
+
+        media += aux;
+        if (aux < min) min = aux;
+        if (aux > max) max = aux;
+    }
+    printf("ep1Passo4HashEmHexa:\n");
+    printf("Tempo médio: %.7lf\n", media / 10.0);
+    printf("Tempo mínimo: %.7lf\n", min);
+    printf("Tempo máximo: %.7lf\n\n", max);
+    free(vetor_magico);
+    free(saida_4);
+
+    // VETOR MÁGICO
+    media = 0;
+    min = 999;
+    max = 0;
+    for (int i = 0; i < 10; i++)
+    {
+        inicial = clock();
+        vetor_magico = ep3CriaVetorMagico(42);
+        final = clock();
+        free(vetor_magico);
+
+        aux = (double)(final - inicial) / CLOCKS_PER_SEC;
+
+        media += aux;
+        if (aux < min) min = aux;
+        if (aux > max) max = aux;
+    }
+    printf("ep3CriaVetorMagico:\n");
+    printf("Tempo médio: %.7lf\n", media / 10.0);
+    printf("Tempo mínimo: %.7lf\n", min);
+    printf("Tempo máximo: %.7lf\n\n", max);
+
+    // SHANNON
+    media = 0;
+    min = 999;
+    max = 0;
+    for (int i = 0; i < 10; i++)
+    {
+        inicial = clock();
+        ep3CalculaEntropiaShannon(teste, 2);
+        final = clock();
+
+        aux = (double)(final - inicial) / CLOCKS_PER_SEC;
+
+        media += aux;
+        if (aux < min) min = aux;
+        if (aux > max) max = aux;
+    }
+    printf("ep3CalculaEntropiaShannon:\n");
+    printf("Tempo médio: %.7lf\n", media / 10.0);
+    printf("Tempo mínimo: %.7lf\n", min);
+    printf("Tempo máximo: %.7lf\n\n", max);
 }
 
 
@@ -255,6 +438,9 @@ int main()
     printf("Finalizando testes da lib shannon...\n");
     printf("Se não recebeu mensagem de erro, todos os testes passaram!\n");
     printf("------------\n");
+
+    // TESTES DE TEMPO DE EXECUÇÃO =============================================
+    // medir_tempos();
 
     return 0;
 }
