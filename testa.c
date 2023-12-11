@@ -123,9 +123,19 @@ void testa_shannon(char *info, int base, long double valor_esperado)
  */
 void medir_tempos()
 {
-    char teste[] = "Uma string qualquer para testar o tempo de execução!!!!!!!";
+    char t0[] = "Escrever testes exige muito da criatividade de uma pessoa.   ";
+    char t1[] = "Então, vamos emprestar as palavras de uma grande escritora...";
+    char t2[] = "Mrs. Dalloway said she would buy the flowers herself. For    ";
+    char t3[] = "Lucy had her work cut out for her. The doors would be taken  ";
+    char t4[] = "off their hinges; Rumpelmayer's men were coming. And then,   ";
+    char t5[] = "thought Clarissa Dalloway, what a morning -- fresh as if     ";
+    char t6[] = "issued to children on a beach.                               ";
+    char t7[] = "What a lark! What a plunge! For so it had always seemed to   ";
+    char t8[] = "her when, with a little squeak of the hinges, which she could";
+    char t9[] = "hear now, she had burst open the French windows and (...)    ";
+    
+    char *teste[] = {t0, t1, t2, t3, t4, t5, t6, t7, t8, t9};
 
-    char *temp;
     int *vetor_magico = ep3CriaVetorMagico(999);
 
     clock_t inicial, final;
@@ -136,12 +146,12 @@ void medir_tempos()
     media = 0;
     min = 999;
     max = 0;
+    char **saida_1 = malloc(10 * sizeof(char *));
     for (int i = 0; i < 10; i++)
     {
         inicial = clock();
-        temp = ep1Passo1Preenche(teste);
+        saida_1[i] = ep1Passo1Preenche(teste[i]);
         final = clock();
-        free(temp);
 
         aux = (double)(final - inicial) / CLOCKS_PER_SEC;
 
@@ -158,14 +168,13 @@ void medir_tempos()
     media = 0;
     min = 999;
     max = 0;
-    char *saida_1 = ep1Passo1Preenche(teste);
     int tamanho;
+    char **saida_2 = malloc(10 * sizeof(char *));
     for (int i = 0; i < 10; i++)
     {
         inicial = clock();
-        temp = ep1Passo2XOR(saida_1, vetor_magico, &tamanho);
+        saida_2[i] = ep1Passo2XOR(saida_1[i], vetor_magico, &tamanho);
         final = clock();
-        free(temp);
 
         aux = (double)(final - inicial) / CLOCKS_PER_SEC;
 
@@ -177,19 +186,19 @@ void medir_tempos()
     printf("Tempo médio: %.7lf\n", media / 10.0);
     printf("Tempo mínimo: %.7lf\n", min);
     printf("Tempo máximo: %.7lf\n\n", max);
+    for (int i = 0; i < 10; i++) free(saida_1[i]);
+    free(saida_1);
 
     // PASSO 3
     media = 0;
     min = 999;
     max = 0;
-    char *saida_2 = ep1Passo2XOR(saida_1, vetor_magico, &tamanho);
-    free(saida_1);
+    char **saida_3 = malloc(10 * sizeof(char *));
     for (int i = 0; i < 10; i++)
     {
         inicial = clock();
-        temp = ep1Passo3Comprime(saida_2, tamanho, vetor_magico);
+        saida_3[i] = ep1Passo3Comprime(saida_2[i], tamanho, vetor_magico);
         final = clock();
-        free(temp);
 
         aux = (double)(final - inicial) / CLOCKS_PER_SEC;
 
@@ -201,19 +210,19 @@ void medir_tempos()
     printf("Tempo médio: %.7lf\n", media / 10.0);
     printf("Tempo mínimo: %.7lf\n", min);
     printf("Tempo máximo: %.7lf\n\n", max);
+    for (int i = 0; i < 10; i++) free(saida_2[i]);
+    free(saida_2);
 
     // PASSO 4 - parte 1
     media = 0;
     min = 999;
     max = 0;
-    char *saida_3 = ep1Passo3Comprime(saida_2, tamanho, vetor_magico);
-    free(saida_2);
+    char **saida_4 = malloc(10 * sizeof(char *));
     for (int i = 0; i < 10; i++)
     {
         inicial = clock();
-        temp = ep1Passo4Hash(saida_3);
+        saida_4[i] = ep1Passo4Hash(saida_3[i]);
         final = clock();
-        free(temp);
 
         aux = (double)(final - inicial) / CLOCKS_PER_SEC;
 
@@ -225,17 +234,18 @@ void medir_tempos()
     printf("Tempo médio: %.7lf\n", media / 10.0);
     printf("Tempo mínimo: %.7lf\n", min);
     printf("Tempo máximo: %.7lf\n\n", max);
+    for (int i = 0; i < 10; i++) free(saida_3[i]);
+    free(saida_3);
 
     // PASSO 4 - parte 2
     media = 0;
     min = 999;
     max = 0;
-    char *saida_4 = ep1Passo4Hash(saida_3);
-    free(saida_3);
+    char *temp;
     for (int i = 0; i < 10; i++)
     {
         inicial = clock();
-        temp = ep1Passo4HashEmHexa(saida_4);
+        temp = ep1Passo4HashEmHexa(saida_4[i]);
         final = clock();
         free(temp);
 
@@ -249,17 +259,19 @@ void medir_tempos()
     printf("Tempo médio: %.7lf\n", media / 10.0);
     printf("Tempo mínimo: %.7lf\n", min);
     printf("Tempo máximo: %.7lf\n\n", max);
-    free(vetor_magico);
+    for (int i = 0; i < 10; i++) free(saida_4[i]);
     free(saida_4);
+    free(vetor_magico);
 
     // VETOR MÁGICO
     media = 0;
     min = 999;
     max = 0;
+    int sementes[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     for (int i = 0; i < 10; i++)
     {
         inicial = clock();
-        vetor_magico = ep3CriaVetorMagico(42);
+        vetor_magico = ep3CriaVetorMagico(sementes[i]);
         final = clock();
         free(vetor_magico);
 
@@ -281,7 +293,7 @@ void medir_tempos()
     for (int i = 0; i < 10; i++)
     {
         inicial = clock();
-        ep3CalculaEntropiaShannon(teste, 2);
+        ep3CalculaEntropiaShannon(teste[i], 2);
         final = clock();
 
         aux = (double)(final - inicial) / CLOCKS_PER_SEC;
@@ -305,12 +317,12 @@ void medir_tempos()
  */
 int main()
 {
-    // TESTES DA LIB HASHLIZA ==================================================
-    // Obs: os testes são realizados com o vetor dado no EP1, para garantir
+    // TESTE[i]S DA LIB HASHLIZA ==================================================
+    // Obs: os teste[i]s são realizados com o vetor dado no EP1, para garantir
     // que a implementação está correta. A geração de vetores mágicos pseudo-
     // aleatórios é testada separadamente.
 
-    printf("------------\nIniciando testes da lib hashliza...\n");
+    printf("------------\nIniciando teste[i]s da lib hashliza...\n");
 
     int VETOR_MAGICO[] = {
         122, 77, 153, 59, 173, 107, 19, 104, 123, 183, 75, 10, 114, 236, 106,
@@ -412,35 +424,35 @@ int main()
     testa_vetor_magico(13);
     testa_vetor_magico(1993);
 
-    printf("Finalizando testes da lib hashliza...\n");
-    printf("Se não recebeu mensagem de erro, todos os testes passaram!\n");
+    printf("Finalizando teste[i]s da lib hashliza...\n");
+    printf("Se não recebeu mensagem de erro, todos os teste[i]s passaram!\n");
 
-    // TESTES DA LIB SHANNON ===================================================
-    // Obs: os casos de teste foram obtidos a partir de calculadoras online
+    // TESTE[i]S DA LIB SHANNON ===================================================
+    // Obs: os casos de teste[i] foram obtidos a partir de calculadoras online
     // (base 2) ou confirmando as saídas com colegas (outras bases).
 
-    printf("------------\nIniciando testes da lib shannon...\n");
+    printf("------------\nIniciando teste[i]s da lib shannon...\n");
     
     // Exemplo do vídeo
     testa_shannon("araraquara", 2, 1.685475);
 
-    // Testes com base 2 - saídas obtidas com calculadora online
+    // Teste[i]s com base 2 - saídas obtidas com calculadora online
     testa_shannon("AAAAAAAAAA", 2, 0.0);
     testa_shannon("AAAAAAAAAB", 2, 0.468996);
     testa_shannon("Hello, World!", 2, 3.180833);
     testa_shannon("MAC0216 eh muito legal!", 2, 4.142915);
 
     // Bases variadas - saídas comparadas com colegas
-    testa_shannon("Teste com base 3", 3, 2.069853);
-    testa_shannon("Teste com base 4", 4, 1.640320);
-    testa_shannon("Teste com base 5", 5, 1.412894);
+    testa_shannon("Teste[i] com base 3", 3, 2.069853);
+    testa_shannon("Teste[i] com base 4", 4, 1.640320);
+    testa_shannon("Teste[i] com base 5", 5, 1.412894);
 
-    printf("Finalizando testes da lib shannon...\n");
-    printf("Se não recebeu mensagem de erro, todos os testes passaram!\n");
+    printf("Finalizando teste[i]s da lib shannon...\n");
+    printf("Se não recebeu mensagem de erro, todos os teste[i]s passaram!\n");
     printf("------------\n");
 
-    // TESTES DE TEMPO DE EXECUÇÃO =============================================
-    // medir_tempos();
+    // TESTE[i]S DE TEMPO DE EXECUÇÃO =============================================
+    medir_tempos();
 
     return 0;
 }
