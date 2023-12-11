@@ -452,7 +452,7 @@ int main()
     printf("------------\n");
 
     // TESTE[i]S DE TEMPO DE EXECUÇÃO =============================================
-    medir_tempos();
+    // medir_tempos();
 
     return 0;
 }
