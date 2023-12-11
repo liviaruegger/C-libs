@@ -4,10 +4,11 @@
 
 
 /**
- * @brief 
+ * @brief Recebe uma string e realiza o padding com (16 - (tamanho % 16)) de tal
+ * forma que a string resultante tenha um tamanho múltiplo de 16.
  * 
- * @param entrada 
- * @return char* 
+ * @param entrada - string original
+ * @return char* - string com padding
  */
 char *ep1Passo1Preenche(char *entrada)
 {
@@ -26,12 +27,14 @@ char *ep1Passo1Preenche(char *entrada)
 
 
 /**
- * @brief 
+ * @brief Recebe uma string gerada pelo passo 1 e realiza uma série de operações
+ * XOR utilizando o "vetor mágico" para gerar uma nova string de saída com 16
+ * bytes a mais.
  * 
- * @param saida_1 
- * @param vetor_magico 
- * @param tamanho_saida 
- * @return char* 
+ * @param saida_1 - string de saída do passo 1
+ * @param vetor_magico - "vetor mágico" para realização dos XOR
+ * @param tamanho_saida - ponteiro para armazenar o tamanho da string de saída
+ * @return char* - saída do passo, ou NULL caso os argumentos sejam inválidos
  */
 char *ep1Passo2XOR(char *saida_1, int *vetor_magico, int *tamanho_saida)
 {   
@@ -58,12 +61,13 @@ char *ep1Passo2XOR(char *saida_1, int *vetor_magico, int *tamanho_saida)
 
 
 /**
- * @brief 
+ * @brief Recebe uma string gerada pelo passo 2 e realiza novas operações com o
+ * "vetor mágico" para gerar uma nova string de saída com 48 bytes.
  * 
- * @param saida_2 
- * @param tamanho_entrada 
- * @param vetor_magico 
- * @return char* 
+ * @param saida_2 - string de saída do passo 2
+ * @param tamanho_entrada - tamanho da string de entrada (saída do passo 2)
+ * @param vetor_magico - "vetor mágico" para realização dos XOR
+ * @return char* - saída do passo, ou NULL caso os argumentos sejam inválidos
  */
 char *ep1Passo3Comprime(char *saida_2, int tamanho_entrada, int *vetor_magico)
 {
@@ -97,10 +101,11 @@ char *ep1Passo3Comprime(char *saida_2, int tamanho_entrada, int *vetor_magico)
 
 
 /**
- * @brief 
+ * @brief Recebe uma string gerada pelo passo 3 e retorna uma nova string com os
+ * seus 16 primeiros bytes.
  * 
- * @param saida_3 
- * @return char* 
+ * @param saida_3 - string de saída do passo 3
+ * @return char* - saída do passo, ou NULL caso os argumentos sejam inválidos
  */
 char *ep1Passo4Hash(char *saida_3)
 {
@@ -112,10 +117,12 @@ char *ep1Passo4Hash(char *saida_3)
 
 
 /**
- * @brief 
+ * @brief Recebe uma string de 16 bytes, gerada pela primeira etapa do passo 4,
+ * e retorna uma outra string com sua representação hexadecimal.
  * 
- * @param hash 
- * @return char* 
+ * @param hash - string de 16 bytes gerada pelos passos anteriores
+ * @return char* - string com a representação hexadecimal do hash, ou NULL caso
+ * os argumentos sejam inválidos
  */
 char *ep1Passo4HashEmHexa(char *hash)
 {
@@ -128,11 +135,11 @@ char *ep1Passo4HashEmHexa(char *hash)
 
 
 /**
- * @brief constrói o vetor mágico utilizando o algoritmo de embaralhamento de
- * Fisher-Yates.
+ * @brief Constrói um vetor pseudo-aleatório de tamanho 256, com inteiros de 0 a
+ * 255 sem repetição, utilizando o algoritmo de embaralhamento de Fisher-Yates.
  * 
- * @param semente 
- * @return int* 
+ * @param semente - semente utilizada para gerar o aleatoriamente o vetor
+ * @return int* - "vetor mágico" pseudo-aleatório de tamanho 256
  */
 int *ep3CriaVetorMagico(int semente)
 {
