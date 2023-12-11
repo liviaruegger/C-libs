@@ -3,4 +3,4 @@
 #include <string.h>
 #include <math.h>
 
-long ep3CalculaEntropiaShannon(char *info, int base);
+long double ep3CalculaEntropiaShannon(char *info, int base);
