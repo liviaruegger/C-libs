@@ -71,6 +71,13 @@ Para realizar essa série de testes, basta executar o programa 'testa', após
 compilação, como especificado no item anterior. Caso algum teste falhe, uma
 mensagem de erro correspondente será impressa na saída padrão.
 
+O arquivo testa.c também apresenta uma função que mede o tempo de execução de
+cada função das bibliotecas para 10 iterações, utilizando a função clock() da
+biblioteca time.h, e apresenta seus tempos de execução médio, mínimo e máximo.
+A chamada dessa função foi mantida comentada para evitar poluir a saída dos
+testes, mas para realizar a medição basta descomentar a linha e recompilar antes
+de executar o programa de teste.
+
 
 === DEPENDÊNCIAS ===
 
