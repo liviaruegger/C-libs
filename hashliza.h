@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 char *ep1Passo1Preenche(char *entrada);
 char *ep1Passo2XOR(char *saida_1, int *vetor_magico, int *tamanho_saida);
 char *ep1Passo3Comprime(char *saida_2, int tamanho_entrada, int *vetor_magico);
