@@ -6,6 +6,9 @@ all:
 test: all
 	./testa
 
+val: all
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./testa
+
 tar:
 	mkdir ep3-ana_livia_saldanha
 	cp $(entrega) ep3-ana_livia_saldanha/
