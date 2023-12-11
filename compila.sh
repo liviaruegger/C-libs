@@ -11,7 +11,7 @@ gcc -c -o testa.o testa.c || exit 1
 gcc -o testa testa.o -L${PWD} -lshannon -lhashliza || exit 1
 
 # Gerar documentação com doxygen
-doxygen Doxyfile &> /dev/null || exit 1
+doxygen Doxyfile > /dev/null || exit 1
 
 # Tudo certo
 exit 0
