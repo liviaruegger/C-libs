@@ -451,7 +451,7 @@ int main()
     printf("Se não recebeu mensagem de erro, todos os teste[i]s passaram!\n");
     printf("------------\n");
 
-    // TESTE[i]S DE TEMPO DE EXECUÇÃO =============================================
+    // TESTES DE TEMPO DE EXECUÇÃO =============================================
     // medir_tempos();
 
     return 0;
